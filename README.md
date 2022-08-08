@@ -11,16 +11,17 @@ username: {
         type: String,
         required: true,
     },
-    email: {
+    
+email: {
         type: String,
         required: true,
         unique: true,
     },
-    password: {
+password: {
         type: String,
         required: true,
     },
-    role: {
+role: {
         type: String,
         required: true,
 }
