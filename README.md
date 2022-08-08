@@ -6,6 +6,7 @@ server listen at port 3000 and db listen at port 27017
 
 ## register 
 post to localhost:3000/users/register
+
 username: {
         type: String,
         required: true,
