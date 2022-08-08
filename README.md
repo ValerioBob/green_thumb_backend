@@ -10,8 +10,7 @@ post to localhost:3000/users/register
 username: {
         type: String,
         required: true,
-    },
-    
+    },   
 email: {
         type: String,
         required: true,
