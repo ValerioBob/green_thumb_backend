@@ -25,6 +25,7 @@ app.use(errors.errorHandler); // middleware for error responses
 
 // MongoDB connection, success and error event responses
 const uri = "mongodb://mongo:27017";
+// const uri = "mongodb://0.0.0.0:27017";
 mongoose.connect(uri, { useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

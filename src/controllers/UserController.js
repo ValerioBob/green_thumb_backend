@@ -7,18 +7,21 @@ router.post('/register', (req, res, next) => {
     
     const {password} = req.body
     
+    
     const salt = bcrypt.genSaltSync(10);
     
     req.body.password = bcrypt.hashSync(password, salt);
-    userServices.register(req.body).then(
-        res.json({success:true})
-        ).catch(err => next(err))
+   userServices.register(req.body).then(
+    function(x){
+        if(x!='error') res.json({success:true})
+        else res.json({success:'User already exists'})
+})
 })
 
 router.post('/login', (req, res, next) => {
-    const { username, password} = req.body;
-    userServices.login({username, password}).then(user => {
-            user ? res.json(user) : res.json({ error: 'Username or password is incorrect' });
+    const { email, password} = req.body;
+    userServices.login({email, password}).then(user => {
+            user ? res.json(user) : res.json({ error: 'Email or password is incorrect' });
         }
     ).catch(err => next(err))
 })
