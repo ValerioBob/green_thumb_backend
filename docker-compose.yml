@@ -1,15 +1,15 @@
 version: '3'
 services:
-  server:
-    container_name: node
+  auth_node:
+    container_name: auth_node
     restart: always
-    build: .
+    build: auth/
     ports:
       - '3000:3000'
     links:
-      - mongo
-  mongo:
-    container_name: mongo
+      - auth_mongo
+  auth_mongo:
+    container_name: auth_mongo
     image: mongo
     restart: always 
     volumes: 
