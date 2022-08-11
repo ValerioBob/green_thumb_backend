@@ -4,10 +4,12 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const unless = require('express-unless')
 const auth = require('../src/helpers/jwt.js');
-const users = require('../src/controllers/UserController.js')
+const items = require('../src/controllers/ItemController');
+const categories = require('../src/controllers/CategoryController');
+
 const errors = require('../src/helpers/errorHandler.js')
 
-app.use(cors({origin: "http://localhost:3001"})) // Default = CORS-enabled for all origins Access-Control-Allow-Origin: *!
+app.use(cors({ origin: "http://localhost:3001" })) // Default = CORS-enabled for all origins Access-Control-Allow-Origin: *!
 app.use(express.json()) // middleware for parsing application/json
 app.use(express.urlencoded({ extended: false })) // for parsing application/x-www-form-urlencoded
 
@@ -15,8 +17,8 @@ app.use(express.urlencoded({ extended: false })) // for parsing application/x-ww
 auth.authenticateToken.unless = unless
 app.use(auth.authenticateToken.unless({
     path: [
-        { url: '/users/login', methods: ['POST']},
-        { url: '/users/register', methods: ['POST']}
+        { url: '/products/insert', methods: ['POST'] },
+        { url: '/products/get', methods: ['GET'] }
     ]
 }))
 

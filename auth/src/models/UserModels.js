@@ -2,7 +2,23 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
+    seller: {
+        type: Boolean,
+        required: true,
+    },
+    fullname: {
+        type: String,
+        required: true,
+    },
 
+    birth: {
+        type: Date,
+        required: true,
+    },
+    fiscalcode: {
+        type: String,
+        required: true,
+    },
     email: {
         type: String,
         required: true,
@@ -12,7 +28,6 @@ const UserSchema = new Schema({
         type: String,
         required: true,
     },
-  
 
 });
 
@@ -26,6 +41,6 @@ UserSchema.set('toJSON', {
     }
 })
 
-const User =  mongoose.model("user", UserSchema);
+const User = mongoose.model("user", UserSchema);
 
 module.exports = User;

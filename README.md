@@ -7,39 +7,37 @@ server listen at port 3000 and db listen at port 27017
 ## register 
 POST to localhost:3000/users/register
 ```
-username: {
-        
+   seller: {
+        type: Boolean,
+        required: true,
+    },
+    fullname: {
         type: String,
         required: true,
-        
-    },   
-    
-email: {
-        
+    },
+
+    birth: {
+        type: Date,
+        required: true,
+    },
+    fiscalcode: {
+        type: String,
+        required: true,
+    },
+    email: {
         type: String,
         required: true,
         unique: true,
-        
     },
-    
-password: {
-        
+    password: {
         type: String,
         required: true,
-        
     },
-    
-role: {
-        
-        type: String,
-        required: true,
-        
-}
 ```
 ## login 
 POST to localhost:3000/users/login
 ```
-username: {
+email: {
         
         type: String,
         required: true,
