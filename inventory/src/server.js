@@ -13,24 +13,17 @@ app.use(cors({ origin: "http://localhost:3001" })) // Default = CORS-enabled for
 app.use(express.json()) // middleware for parsing application/json
 app.use(express.urlencoded({ extended: false })) // for parsing application/x-www-form-urlencoded
 
-// middleware for authenticating token submitted with requests
-auth.authenticateToken.unless = unless
-app.use(auth.authenticateToken.unless({
-    path: [
-        { url: '/products/insert', methods: ['POST'] },
-        { url: '/products/get', methods: ['GET'] }
-    ]
-}))
 
-app.use('/users', users) // middleware for listening to routes
+app.use('/products', require('./routes/product.routes'))
+app.use('/categories', require('./routes/category.routes'))
 app.use(errors.errorHandler); // middleware for error responses
 
 // MongoDB connection, success and error event responses
-const uri = "mongodb://mongo:27017";
+const uri = "mongodb://inventory_mongo:27017";
 // const uri = "mongodb://0.0.0.0:27017";
-mongoose.connect(uri, { useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => console.log(`Connected to mongo at ${uri}`));
 
-app.listen(3000);
+app.listen(3002);

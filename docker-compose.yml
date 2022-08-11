@@ -10,7 +10,21 @@ services:
       - auth_mongo
   auth_mongo:
     container_name: auth_mongo
-    image: mongo
-    restart: always 
-    volumes: 
-      - ./data:/data/db
+    image: mongo:4.4.6
+    restart: always
+    volumes:
+      - ./data:/data/auth
+  inventory_node:
+    container_name: inventory_node
+    restart: always
+    build: inventory/
+    ports:
+      - '3002:3002'
+    links:
+      - inventory_mongo
+  inventory_mongo:
+    container_name: inventory_mongo
+    image: mongo:4.4.6
+    restart: always
+    volumes:
+      - ./data:/data/inventory
