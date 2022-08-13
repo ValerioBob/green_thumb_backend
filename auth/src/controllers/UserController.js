@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router();
 const bcrypt = require('bcryptjs')
-const userServices = require('../services/UserServices.js')
+const userServices = require('../services/UserServices.js');
+const User = require('../models/UserModels.js');
 
 router.post('/register', (req, res, next) => {
     
@@ -14,6 +15,23 @@ router.post('/register', (req, res, next) => {
         if(x!='error') res.json({success:true})
         else res.json({success:'User already exists'})
 })
+})
+
+router.put('/courier', async (req, res) => {
+    const {id, latitude, longitude} = req.body
+//     userServices.updatePosition(id, latitude, longitude).then(
+//         function(x){
+//             if(x!='error') res.json({success:true})
+//             else res.json({success:'Position error'})
+// })
+
+    await User.findByIdAndUpdate(id, { latitude: latitude, longitude: longitude}).then(
+   
+    function(x){
+        if(x!='error') res.json({success:true})
+        else res.json({success:'Position error'})
+})
+
 })
 
 router.post('/login', (req, res, next) => {

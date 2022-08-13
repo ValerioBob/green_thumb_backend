@@ -28,7 +28,14 @@ const UserSchema = new Schema({
         type: String,
         required: true,
     },
-
+    latitude: {
+        type: Number,
+        required: false
+    },
+    longitude: {
+        type: Number,
+        required: false,
+    }
 });
 
 UserSchema.set('toJSON', {

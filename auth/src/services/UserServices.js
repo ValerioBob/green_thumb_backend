@@ -15,6 +15,16 @@ async function login({ email, password }) {
     }
 }
 
+// async function updatePosition({ id, latitude, longitude }) {
+//     console.log(id)
+//     try{
+//         await User.findByIdAndUpdate(id, { latitude: latitude, longitude: longitude});}
+//         catch(e){
+//             return 'error';
+//         }
+    
+// }
+
 async function register(params){
     // instantiate a user modal and save to mongoDB
     const user = new User(params)
@@ -36,4 +46,5 @@ module.exports = {
     login,
     register,
     getById
+    // updatePosition
 };
