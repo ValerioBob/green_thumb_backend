@@ -17,7 +17,8 @@ app.use(auth.authenticateToken.unless({
     path: [
         { url: '/users/login', methods: ['POST'] },
         { url: '/users/register', methods: ['POST'] },
-        { url: '/users/courier', methods: ['PUT'] }
+        { url: '/users/courier', methods: ['PUT'] },
+        { url: '/users/id', methods: ['GET'] }
     ]
 }))
 

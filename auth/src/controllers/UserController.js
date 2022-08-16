@@ -42,8 +42,19 @@ router.post('/login', (req, res, next) => {
     ).catch(err => next(err))
 })
 
-router.get('/:id', (req, res, next) => {
-    userServices.getById(req.params.id).then(
+// router.get('/:id', (req, res, next) => {
+//     console.log(req.params.id)
+//     userServices.getById(req.params.id).then(
+//         (user) => res.json(user)
+//     ).catch(err => next(err))
+// })
+// localhost:3000/users/:id?id=62fb715826f22700121b7334
+
+router.get('/id', (req, res, next) => {
+    var mongoose = require('mongoose');
+    const bodyId = req.body.id
+    const id = mongoose.Types.ObjectId(bodyId)
+    userServices.getById(id).then(
         (user) => res.json(user)
     ).catch(err => next(err))
 })
