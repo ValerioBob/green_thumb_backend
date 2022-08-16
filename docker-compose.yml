@@ -28,3 +28,17 @@ services:
     restart: always
     volumes:
       - ./data:/data/inventory
+  order_node:
+    container_name: order_node
+    restart: always
+    build: order/
+    ports:
+      - '3003:3003'
+    links:
+      - order_mongo
+  order_mongo:
+    container_name: order_mongo
+    image: mongo:4.4.6
+    restart: always
+    volumes:
+      - ./data:/data/order
