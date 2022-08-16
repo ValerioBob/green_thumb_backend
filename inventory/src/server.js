@@ -2,10 +2,6 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
-const unless = require('express-unless')
-const auth = require('../src/helpers/jwt.js');
-const items = require('../src/controllers/ItemController');
-const categories = require('../src/controllers/CategoryController');
 
 const errors = require('../src/helpers/errorHandler.js')
 
