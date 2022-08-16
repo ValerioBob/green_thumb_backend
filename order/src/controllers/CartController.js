@@ -24,115 +24,144 @@ CTRL.addProduct = (req, res) => {
     const { cartId, productId } = req.params;
 
     Cart.find({ 'cartId': cartId }).exec((err, cart) => {
-
         if (err) {
-
             return res.status(500).json({
                 ok: false,
                 err
             })
         }
         else if (cart.length > 0) {// cart exists
-            // console.log(cart)
             found = false;
-            console.log('%o',)
-
-
-            cart.cartItems.forEach(p => {
+            cart[0].cartItems.forEach(p => {
                 if (p.product == productId) {//product exist in cart, so add qty +1
                     found = true;
-                    Cart.updateOne({ 'cartId': cartId }, { cartItems: [{ product: productId, qty: p.qty + 1 }] })
-                }
-            });
-            if (!found)
-                Cart.updateOne({ 'cartId': cartId }, { cartItems: [{ product: productId, qty: 1 }] })
-            res.json({
-                ok: true
-            });
 
+                    Cart.updateOne(
+                        { 'cartId': cartId },
+                        { $set: { "cartItems.$[x].qty": p.qty + 1 } },
+                        { arrayFilters: [{ "x.product": productId }] })
+
+                        .then(result => {
+                            res.json({
+                                ok: true,
+                                result
+                            });
+                        })
+                }
+            })
+
+            if (!found) {
+                Cart.updateOne({ 'cartId': cartId }, { $push: { cartItems: [{ product: productId, qty: 1 }] } })
+                    .then(result => {
+
+                        res.json({
+                            ok: true,
+                            result
+                        })
+                    })
+
+
+            }
         }
         else if (cart.length == 0) {
-
-            console.log("cart == null")
             const newCart = new Cart({
                 cartId: cartId,
                 cartItems: [{ product: productId, qty: 1 }]
             })
-            console.log('%o', newCart)
-            newCart.save();
+
+            newCart.save()
 
             res.json({
                 ok: true,
                 newCart,
             });
-
         }
-
-    });
-};
-
-CTRL.createCategory = (req, res) => {
-    const newCategory = new Category({
-        name: req.body.name,
-        description: req.body.description,
-        status: req.body.status
-    })
+    }
+    )
+}
 
 
-    newCategory.save((err, category) => {
-        if (err) {
-            return res.status(500).json({
-                ok: false,
-                err,
-            });
-        }
+// CTRL.removeProduct = (req, res) => {
 
-        return res.status(201).json({
-            ok: true,
-            category,
-        });
-    });
-};
+//     const { cartId, productId } = req.params;
 
-CTRL.updateCart = (req, res) => {
-    const { cartId } = req.params;
+//     Cart.find({ 'cartId': cartId }).exec((err, cart) => {
+//         if (err) {
+//             return res.status(500).json({
+//                 ok: false,
+//                 err
+//             })
+//         }
+//         else if (cart.length > 0) {// cart exists
+//             found = false;
+//             cart[0].cartItems.forEach(p => {
+//                 if (p.product == productId) {//product exist in cart, so add qty +1
+//                     found = true;
 
-    Cart.findByIdAndUpdate(
-        cartId,
-        req.body,
-        { new: true },
-        (err, category) => {
-            if (err) {
-                return res.status(500).json({
-                    ok: false,
-                    err,
-                });
-            }
+//                     Cart.updateOne(
+//                         { 'cartId': cartId },
+//                         { $set: { "cartItems.$[x].qty": p.qty + 1 } },
+//                         { arrayFilters: [{ "x.product": productId }] })
 
-            return res.status(201).json({
-                ok: true,
-                category,
-            });
-        }
-    );
-};
+//                         .then(result => {
+//                             res.json({
+//                                 ok: true,
+//                                 result
+//                             });
+//                         })
+//                 }
+//             })
 
-CTRL.deleteCategory = (req, res) => {
-    const { categoryId } = req.params;
+//             if (!found) {
+//                 Cart.updateOne({ 'cartId': cartId }, { $push: { cartItems: [{ product: productId, qty: 1 }] } })
+//                     .then(result => {
 
-    Category.findByIdAndRemove(categoryId, (err, category) => {
-        if (err) {
-            return res.status(500).json({
-                ok: false,
-                err,
-            });
-        }
+//                         res.json({
+//                             ok: true,
+//                             result
+//                         })
+//                     })
 
-        return res.status(201).json({
-            ok: true,
-            category,
-        });
-    });
-};
+
+//             }
+//         }
+//         else if (cart.length == 0) {
+//             const newCart = new Cart({
+//                 cartId: cartId,
+//                 cartItems: [{ product: productId, qty: 1 }]
+//             })
+
+//             newCart.save()
+
+//             res.json({
+//                 ok: true,
+//                 newCart,
+//             });
+//         }
+//     }
+//     )
+// }
+
+
+
+
+
+// CTRL.deleteCart = (req, res) => {
+//     const { cartId } = req.params
+
+//     Category.findByIdAndRemove(categoryId, (err, category) => {
+//         if (err) {
+//             return res.status(500).json({
+//                 ok: false,
+//                 err,
+//             });
+//         }
+
+//         return res.status(201).json({
+//             ok: true,
+//             category,
+//         });
+//     });
+// };
 
 module.exports = CTRL;
