@@ -1,33 +1,63 @@
-const express = require('express')
-const router = express.Router();
 const bcrypt = require('bcryptjs')
-const userServices = require('../services/UserServices.js')
+const User = require('../models/User')
+const auth = require('../helpers/jwt')
+const CTRL = {};
 
-router.post('/register', (req, res, next) => {
-    
-    const {password} = req.body
+CTRL.register = (req, res) => {
+
+    const { password } = req.body
     const salt = bcrypt.genSaltSync(10);
-    
-    req.body.password = bcrypt.hashSync(password, salt);
-    userServices.register(req.body).then(
-    function(x){
-        if(x!='error') res.json({success:true})
-        else res.json({success:'User already exists'})
-})
-})
 
-router.post('/login', (req, res, next) => {
-    const { email, password} = req.body;
-    userServices.login({email, password}).then(user => {
+    req.body.password = bcrypt.hashSync(password, salt);
+    const user = new User(req.body)
+
+    user.save().then(user => {
+        user ? res.json({ success: true }) : res.json({ error: 'User already exists' })
+    }).catch(() => res.json({ error: 'User already exists' }))
+}
+
+
+CTRL.login = (req, res) => {
+
+    const { email, password } = req.body;
+
+    const user = User.findOne({ email }).then(
+        user => {
+
+            if (user && bcrypt.compareSync(password, user.password)) {
+                const token = auth.generateAccessToken(email);
+                return {
+                    ...user.toJSON(), token
+                }
+            }
+        })
+        .then(user => {
             user ? res.json(user) : res.json({ error: 'Email or password is incorrect' });
         }
-    ).catch(err => next(err))
-})
+        )
 
-router.get('/:id', (req, res, next) => {
-    userServices.getById(req.params.id).then(
-        (user) => res.json(user)
-    ).catch(err => next(err))
-})
+}
 
-module.exports = router;
+
+
+CTRL.getUser = (req, res) => {
+
+    const { userId } = req.params;
+
+    const user = User.findById(userId).exec((err, user) => {
+
+        if (err) {
+            return res.status(500).json({
+                ok: false,
+                err
+            })
+        }
+        res.json({
+            ok: true,
+            user,
+        });
+    })
+}
+
+
+module.exports = CTRL;
