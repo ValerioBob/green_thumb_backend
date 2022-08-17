@@ -5,13 +5,11 @@ const Schema = mongoose.Schema;
 const OrderSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    // ref: "Client",
   },
   orderItems: [
     {
       product: {
         type: Schema.Types.ObjectId,
-        // ref: "Product",
       },
       qty: Number,
     },

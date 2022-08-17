@@ -5,18 +5,17 @@ const Schema = mongoose.Schema;
 const CartSchema = new Schema({
     cartId: {
         type: Schema.Types.ObjectId,
-        // ref: "Client",
         unique: true,
     },
     cartItems: [
         {
             product: {
                 type: Schema.Types.ObjectId,
-                // ref: "Product",
             },
             qty: Number,
         },
     ],
+    total: Number,
 
     created_at: {
         type: Date,
