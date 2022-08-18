@@ -13,6 +13,7 @@ const CartSchema = new Schema({
                 type: Schema.Types.ObjectId,
             },
             qty: Number,
+            price: Number
         },
     ],
     total: Number,

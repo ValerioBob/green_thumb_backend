@@ -18,7 +18,6 @@ CTRL.getCategories = (req, res) => {
 };
 
 CTRL.getCategory = (req, res) => {
-    console.log(req)
 
     const { categoryId } = req.params;
     Category.findById(categoryId).exec((err, category) => {

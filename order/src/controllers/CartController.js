@@ -21,6 +21,8 @@ CTRL.getCart = (req, res) => {
 
 CTRL.addProduct = (req, res) => {
     const { cartId, productId } = req.params;
+    const qty = parseFloat(req.body.qty);
+    const price = parseFloat(req.body.price);
     Cart.find({ 'cartId': cartId }).exec((err, cart) => {
         if (err) {
             return res.status(500).json({
@@ -31,11 +33,14 @@ CTRL.addProduct = (req, res) => {
         else if (cart.length > 0) {// cart exists
             found = false;
             cart[0].cartItems.forEach(p => {
-                if (p.product == productId) {//product exist in cart =>  add qty +1
+                if (p.product == productId) {//product exist in cart =>  add p.qty +=qty
                     found = true;
                     Cart.updateOne(
                         { 'cartId': cartId },
-                        { $set: { "cartItems.$[x].qty": p.qty + 1 } },
+                        {
+                            $set: { "cartItems.$[x].qty": p.qty + qty, "cartItems.$[x].price": p.price + price },
+                            $inc: { "total": price }
+                        },
                         { arrayFilters: [{ "x.product": productId }] })
                         .then(result => {
                             res.json({
@@ -46,7 +51,11 @@ CTRL.addProduct = (req, res) => {
                 }
             })
             if (!found) {
-                Cart.updateOne({ 'cartId': cartId }, { $push: { cartItems: [{ product: productId, qty: 1 }] } })
+                Cart.updateOne({ 'cartId': cartId },
+                    {
+                        $push: { cartItems: [{ product: productId, qty: qty, price: price }] },
+                        $inc: { "total": price }
+                    })
                     .then(result => {
                         res.json({
                             ok: true,
@@ -58,7 +67,8 @@ CTRL.addProduct = (req, res) => {
         else if (cart.length == 0) {
             const newCart = new Cart({
                 cartId: cartId,
-                cartItems: [{ product: productId, qty: 1 }]
+                cartItems: [{ product: productId, qty: qty, price: price }],
+                total: price
             })
             newCart.save().then((cart) => {
                 res.json({
@@ -74,7 +84,6 @@ CTRL.addProduct = (req, res) => {
 CTRL.deleteCart = (req, res) => {
     const { cartId } = req.params
     Cart.findOneAndRemove({ 'cartId': cartId }, (err, cart) => {
-        console.log('%o', cart)
         if (err) {
             return res.status(500).json({
                 ok: false,
@@ -103,11 +112,14 @@ CTRL.removeProduct = (req, res) => {
         else if (cart.length > 0) {// cart exists
             found = false;
             cart[0].cartItems.forEach(p => {
-                if (p.product == productId) {//product exist in cart, so add qty +1
+                if (p.product == productId) {
                     found = true;
                     Cart.updateOne(
                         { 'cartId': cartId },
-                        { $pull: { cartItems: { product: p.product, qty: p.qty, _id: p._id } } })
+                        {
+                            $pull: { cartItems: { product: p.product, qty: p.qty, price: p.price, _id: p._id } },
+                            $inc: { "total": -p.price }
+                        })
                         .then(result => {
                             res.json({
                                 ok: true,
