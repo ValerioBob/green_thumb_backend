@@ -16,12 +16,20 @@ const OrderSchema = new Schema({
   ],
   total: {
     type: Number,
-    required: true,
+    required: false,
   },
   created_at: {
     type: Date,
     default: Date.now,
   },
+  latitude: {
+    type: Number,
+    required: false
+  },
+  longitude: {
+      type: Number,
+      required: false,
+  }
 });
 
 module.exports = mongoose.model("Order", OrderSchema);
