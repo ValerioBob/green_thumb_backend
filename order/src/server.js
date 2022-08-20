@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+
 const errors = require('../src/helpers/errorHandler.js')
 
 app.use(cors({ origin: "http://localhost:3001" })) // Default = CORS-enabled for all origins Access-Control-Allow-Origin: *!
@@ -12,6 +13,7 @@ app.use(express.urlencoded({ extended: false })) // for parsing application/x-ww
 
 app.use('/order', require('./routes/order.routes'))
 app.use('/cart', require('./routes/cart.routes'))
+app.use('/pay', require('./routes/pay.routes'))
 app.use(errors.errorHandler); // middleware for error responses
 
 // MongoDB connection, success and error event responses
