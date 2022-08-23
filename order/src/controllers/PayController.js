@@ -9,7 +9,7 @@ const CTRL = {};
 CTRL.createPayment = (req, res) => {
     const amount = req.query.amount;
     const currency = req.query.currency.toUpperCase();
-
+    
     var create_payment_json = {
         "intent": "sale",
         "payer": {
@@ -19,7 +19,7 @@ CTRL.createPayment = (req, res) => {
         /// "https://us-central1-paypal.cloudfunctions.net/paypalTestPaymentExecute",
         /// 
         "redirect_urls": {
-            "return_url": `http://localhost:3000/execute?amount=${amount}&currency=${currency}`,
+            "return_url": `http://10.0.2.2:3003/pay/execute?amount=${amount}&currency=${currency}`,
             "cancel_url": "http://cancel.url"
         },
         "transactions": [{
