@@ -42,7 +42,7 @@ CTRL.sendMessage = (req, res) => {
 
 CTRL.updateMessage = (req, res) => {
     const { messageId } = req.params;
-    Chat.findByIdAndUpdate(messageId, { content: req.body.content })
+    Chat.findByIdAndUpdate(messageId, { content: req.body.content, created_at: req.body.created_at, new: true })
         .exec((err, chat) => {
             if (err) {
                 return res.status(500).json({
