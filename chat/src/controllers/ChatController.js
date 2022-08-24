@@ -1,38 +1,61 @@
+const Chat = require("../models/Chat");
 const Order = require("../models/Chat");
 
 const CTRL = {};
 
-// CTRL.getOrder = (req, res) => {
-//     const { orderId } = req.params;
-//     Order.findById(orderId).exec((err, ord) => {
-//         if (err) {
-//             return res.status(500).json({
-//                 ok: false,
-//                 err
-//             })
-//         }
-//         res.json({
-//             ok: true,
-//             ord,
-//         });
-//     });
-// };
+CTRL.getMessage = (req, res) => {
+    const { userId } = req.params;
+    Chat.find({}, {userId: userId, created_at: 1, content: 1,}).exec((err, mess) => {
+        if (err) {
+            return res.status(500).json({
+                ok: false,
+                err
+            })
+        }
+        res.json({
+            ok: true,
+            mess,
+        });
+    });
+};
 
-// CTRL.addOrder = (req, res) => {
-//     const { userId, productId } = req.params;//todo take from cart
-//     const newOrder = new Order({
-//         user: userId,
-//         orderItems: [{ product: productId, qty: 1 }], ///todo take from cart
-//         latitude: 0,
-//         longitude: 0
-//     })
-//     newOrder.save().then((order) => {
-//         res.json({
-//             ok: true,
-//             order,
-//         });
-//     })
-// }
+CTRL.sendMessage = (req, res) => {
+    const newChat = new Chat({
+        userId: req.body.userId,
+        content: req.body.content
+    });
+
+    newChat.save((err, chat) => {
+        if (err) {
+            return res.status(500).json({
+                ok: false,
+                err,
+            });
+        }
+
+        return res.status(201).json({
+            ok: true,
+            chat,
+        });
+    });
+};
+
+CTRL.updateMessage = (req, res) => {
+    const { messageId } = req.params;
+    Chat.findByIdAndUpdate(messageId, { content: req.body.content })
+        .exec((err, chat) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    err
+                })
+            }
+            res.json({
+                ok: true,
+                chat,
+            });
+        });
+}
 
 // CTRL.updateOrder = (req, res) => {
 //     const { orderId } = req.params;

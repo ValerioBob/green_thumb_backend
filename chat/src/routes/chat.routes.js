@@ -1,11 +1,12 @@
 const router = require("express").Router();
 
-const orderCTRL = require("../controllers/ChatController");
+const chatCTRL = require("../controllers/ChatController");
 
 const { isAuth } = require("../helpers/jwt");
 
-// router.get("/:orderId", orderCTRL.getOrder);
-// router.post("/:userId/:orderId", isAuth, orderCTRL.addOrder);
+router.get("/:userId", chatCTRL.getMessage);
+router.post("/", chatCTRL.sendMessage);
+router.put("/:messageId", chatCTRL.updateMessage);
 // router.put("/:orderId", isAuth, orderCTRL.updateOrder);
 
 // router.get("/", categoryCTRL.getCategories);

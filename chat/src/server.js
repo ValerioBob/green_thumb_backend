@@ -15,7 +15,7 @@ app.use('/chat', require('./routes/chat.routes'))
 app.use(errors.errorHandler); // middleware for error responses
 
 // MongoDB connection, success and error event responses
-const uri = "mongodb://order_mongo:27017";
+const uri = "mongodb://chat_mongo:27017";
 // const uri = "mongodb://0.0.0.0:27017";
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;

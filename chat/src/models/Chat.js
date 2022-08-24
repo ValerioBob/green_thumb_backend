@@ -4,18 +4,16 @@ const Schema = mongoose.Schema;
 
 const ChatSchema = new Schema({
   userId: {
-    type: ObjectId,
-  },
-  messageId: {
-    type: ObjectId
+    type: Schema.Types.ObjectId,
   },
   created_at: {
     type: Date,
     default: Date.now,
+    required: false
   },
   content: {
     type: String,
-    required: false
+    required: true
   }
 });
 
