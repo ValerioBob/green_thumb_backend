@@ -16,7 +16,6 @@ const OrderSchema = new Schema({
   ],
   total: {
     type: Number,
-    required: false,
   },
   created_at: {
     type: Date,
@@ -24,11 +23,11 @@ const OrderSchema = new Schema({
   },
   latitude: {
     type: Number,
-    required: false
+    
   },
   longitude: {
       type: Number,
-      required: false,
+      
   }
 });
 

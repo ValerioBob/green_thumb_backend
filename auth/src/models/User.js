@@ -12,7 +12,7 @@ const UserSchema = new Schema({
     },
 
     birth: {
-        type: Date,
+        type: String,
         required: true,
     },
     fiscalcode: {

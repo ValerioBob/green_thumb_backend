@@ -39,14 +39,15 @@ CTRL.getProduct = (req, res) => {
 
 CTRL.createProduct = (req, res) => {
     const newProduct = new Product({
-        code: req.body.code,
         name: req.body.name,
+        latin: req.body.latin,
         description: req.body.description,
-        price: req.body.price,
-        stock: req.body.stock,
-        image: req.body.image,
+        plant: req.body.plant,
         category: req.body.category,
-        status: req.body.status
+        water: req.body.water,
+        oxigen: req.body.oxigen,
+        sunlight: req.body.sunlight,
+        price: req.body.price
     });
 
     newProduct.save((err, product) => {
