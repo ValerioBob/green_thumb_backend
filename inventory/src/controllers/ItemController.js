@@ -50,8 +50,11 @@ CTRL.createProduct = (req, res) => {
         price: req.body.price
     });
 
+    console.log('%o', newProduct);
+
     newProduct.save((err, product) => {
         if (err) {
+            console.log('%o',err)
             return res.status(500).json({
                 ok: false,
                 err,

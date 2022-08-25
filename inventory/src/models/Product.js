@@ -20,8 +20,8 @@ const ProductSchema = new Schema({
     type: String,
     required: true,
   },
-  plant: {
-    type: Boolean,
+  plant: { //todo
+    type: String,
     required: true,
   },
   category: {
