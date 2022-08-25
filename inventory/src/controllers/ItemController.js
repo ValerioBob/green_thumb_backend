@@ -19,6 +19,23 @@ CTRL.getProducts = (req, res) => {
         });
 };
 
+CTRL.getSellersProducts = (req,res) => {
+    const { sellerId } = req.params;
+    Product.find({'seller': sellerId})
+        .exec((err, product) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    err
+                })
+            }
+            res.json({
+                ok: true,
+                product,
+            });
+        });
+}
+
 CTRL.getProduct = (req, res) => {
     const { productId } = req.params;
     Product.findById(productId)
@@ -39,6 +56,7 @@ CTRL.getProduct = (req, res) => {
 
 CTRL.createProduct = (req, res) => {
     const newProduct = new Product({
+        seller: req.body.seller,
         name: req.body.name,
         latin: req.body.latin,
         description: req.body.description,

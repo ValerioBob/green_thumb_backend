@@ -3,11 +3,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ProductSchema = new Schema({
-  // code: {
-  //   type: String,
-  //   unique: true,
-  //   required: true,
-  // },
+  seller: {
+    type: Schema.Types.ObjectId,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
@@ -20,7 +19,7 @@ const ProductSchema = new Schema({
     type: String,
     required: true,
   },
-  plant: { //todo
+  plant: { //todo fix category
     type: String,
     required: true,
   },
