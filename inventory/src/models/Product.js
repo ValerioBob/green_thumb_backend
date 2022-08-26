@@ -3,11 +3,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ProductSchema = new Schema({
-  // code: {
-  //   type: String,
-  //   unique: true,
-  //   required: true,
-  // },
+  seller: {
+    type: Schema.Types.ObjectId,
+    requred: true,
+  },
   name: {
     type: String,
     required: true,
