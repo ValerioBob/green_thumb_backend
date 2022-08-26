@@ -3,10 +3,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ProductSchema = new Schema({
-  seller: {
-    type: Schema.Types.ObjectId,
-    required: true,
-  },
+  // code: {
+  //   type: String,
+  //   unique: true,
+  //   required: true,
+  // },
   name: {
     type: String,
     required: true,
@@ -19,19 +20,19 @@ const ProductSchema = new Schema({
     type: String,
     required: true,
   },
-  plant: { //todo fix category
-    type: String,
-    required: true,
-  },
+  // plant: {
+  //   type: Boolean,
+  //   required: true,
+  // },
   category: {
-    type: Schema.Types.ObjectId,
-    ref: "Category",
+    type: String,
+    // ref: "Category",
   },
   water: {
     type: String,
     required: true,
   },
-  oxigen: {
+  oxygen: {
     type: Number,
     required: true,
   },
@@ -40,7 +41,7 @@ const ProductSchema = new Schema({
     required: true,
   },
   price: Number,
-  image: {
+  picture: {
     type: String,
     maxlength: 512,
   },
