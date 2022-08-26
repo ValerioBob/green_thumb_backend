@@ -5,8 +5,8 @@ const chatCTRL = require("../controllers/ChatController");
 const { isAuth } = require("../helpers/jwt");
 
 router.get("/:userId", chatCTRL.getMessage);
-router.post("/", chatCTRL.sendMessage);
-router.put("/:messageId", chatCTRL.updateMessage);
+router.post("/", chatCTRL.createChat);
+router.put("/:userId", chatCTRL.updateMessage);
 // router.put("/:orderId", isAuth, orderCTRL.updateOrder);
 
 // router.get("/", categoryCTRL.getCategories);

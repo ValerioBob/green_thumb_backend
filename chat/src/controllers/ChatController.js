@@ -5,7 +5,7 @@ const CTRL = {};
 
 CTRL.getMessage = (req, res) => {
     const { userId } = req.params;
-    Chat.find({}, {userId: userId, created_at: 1, content: 1,}).exec((err, mess) => {
+    Chat.findOne({userId: userId}).exec((err, mess) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
@@ -19,10 +19,11 @@ CTRL.getMessage = (req, res) => {
     });
 };
 
-CTRL.sendMessage = (req, res) => {
+CTRL.createChat = (req, res) => {
     const newChat = new Chat({
         userId: req.body.userId,
-        content: req.body.content
+        content: req.body.content,
+        idConversation: req.body.idConversation
     });
 
     newChat.save((err, chat) => {
@@ -41,8 +42,8 @@ CTRL.sendMessage = (req, res) => {
 };
 
 CTRL.updateMessage = (req, res) => {
-    const { messageId } = req.params;
-    Chat.findByIdAndUpdate(messageId, { content: req.body.content, created_at: req.body.created_at, new: true })
+    const { userId } = req.params;
+    Chat.findOneAndUpdate({userId: userId}, { content: req.body.content, created_at: req.body.created_at, new: true })
         .exec((err, chat) => {
             if (err) {
                 return res.status(500).json({

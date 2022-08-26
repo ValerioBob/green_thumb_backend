@@ -14,6 +14,9 @@ const ChatSchema = new Schema({
   content: {
     type: String,
     required: true
+  },
+  idConversation: {
+    type: Schema.Types.ObjectId
   }
 });
 
