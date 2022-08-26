@@ -60,12 +60,12 @@ CTRL.createProduct = (req, res) => {
         name: req.body.name,
         latin: req.body.latin,
         description: req.body.description,
-        plant: req.body.plant,
         category: req.body.category,
         water: req.body.water,
-        oxigen: req.body.oxigen,
+        oxygen: req.body.oxigen,
         sunlight: req.body.sunlight,
-        price: req.body.price
+        price: req.body.price,
+        picture : req.body.picture
     });
 
     console.log('%o', newProduct);
