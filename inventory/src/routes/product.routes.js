@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const productCTRL = require("../controllers/ItemController");
+const productCTRL = require("../controllers/ProductController");
 
 const { isAuth } = require("../helpers/jwt");
 

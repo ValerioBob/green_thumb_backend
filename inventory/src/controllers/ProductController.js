@@ -62,7 +62,7 @@ CTRL.createProduct = (req, res) => {
         description: req.body.description,
         category: req.body.category,
         water: req.body.water,
-        oxygen: req.body.oxigen,
+        oxygen: req.body.oxygen,
         sunlight: req.body.sunlight,
         price: req.body.price,
         picture : req.body.picture
