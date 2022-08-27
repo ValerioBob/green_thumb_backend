@@ -42,7 +42,7 @@ const ProductSchema = new Schema({
   price: Number,
   picture: {
     type: String,
-    maxlength: 512,
+    // maxlength: 512,
   },
  
   created_at: {
