@@ -111,16 +111,59 @@ CTRL.updateProduct = (req, res) => {
 };
 
 CTRL.updateQuantity=(req, res) => {
+
     const { productId } = req.params;
-    const {quantity} = req.body;
+    const quantity = parseInt(req.params.quantity)
 
-    Cart.updateOne(
-        { 'productId': productId },
-        {
-            $inc: { "quantity": quantity }
-        })
+    Product.findOne({ '_id': productId }).exec((err, product) => {
+        if (err || product == null) {
+            return res.status(500).json({
+                ok: false,
+                err
+            })
+        }
+        else if (product.quantity + quantity > 0) {
+
+            Product.updateOne(
+                { '_id': productId },
+                {
+                    $inc: { "quantity": quantity }
+                }).then(result => {
+                    if(result['modifiedCount']){
+                    res.json({
+                        ok: true,
+                        result
+                    });
+                }
+                else res.json({
+                    ok: false,
+                    result
+                });
+                })
+        }
+        else {
+            Product.findByIdAndRemove(productId, (err, product) => {
+                if (err) {
+                    return res.status(500).json({
+                        ok: false,
+                        err,
+                    });
+                }
+        
+                return res.status(201).json({
+                    ok: true,
+                    product,
+                });
+            })
+
+        }
+    
+    
+    })
+
+
+    
 }
-
 
 CTRL.deleteProduct = (req, res) => {
     const { productId } = req.params;

@@ -44,7 +44,10 @@ const ProductSchema = new Schema({
     type: String,
     // maxlength: 512,
   },
- quantity:Number, 
+ quantity: {
+  type: Number,
+  default: 1
+}, 
   created_at: {
     type: Date,
     default: Date.now,
