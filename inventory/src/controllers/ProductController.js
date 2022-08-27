@@ -65,7 +65,8 @@ CTRL.createProduct = (req, res) => {
         oxygen: req.body.oxygen,
         sunlight: req.body.sunlight,
         price: req.body.price,
-        picture : req.body.picture
+        picture : req.body.picture,
+        quantity : req.body.quantity
     });
 
     console.log('%o', newProduct);
@@ -108,6 +109,18 @@ CTRL.updateProduct = (req, res) => {
         }
     );
 };
+
+CTRL.updateQuantity=(req, res) => {
+    const { productId } = req.params;
+    const {quantity} = req.body;
+
+    Cart.updateOne(
+        { 'productId': productId },
+        {
+            $inc: { "quantity": quantity }
+        })
+}
+
 
 CTRL.deleteProduct = (req, res) => {
     const { productId } = req.params;

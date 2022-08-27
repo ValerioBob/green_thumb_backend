@@ -10,5 +10,6 @@ router.get("/:productId", productCTRL.getProduct);
 router.post("/", productCTRL.createProduct);
 router.put("/:productId", productCTRL.updateProduct);
 router.delete("/:productId", productCTRL.deleteProduct);
+router.put("/:productId", productCTRL.updateQuantity);
 
 module.exports = router;
