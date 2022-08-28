@@ -3,9 +3,13 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ProductSchema = new Schema({
-  seller: {
+  sellerId: {
     type: Schema.Types.ObjectId,
     requred: true,
+  },
+  sellerName:  {
+    type: String,
+    required: true,
   },
   name: {
     type: String,
@@ -19,10 +23,7 @@ const ProductSchema = new Schema({
     type: String,
     required: true,
   },
-  // plant: {
-  //   type: Boolean,
-  //   required: true,
-  // },
+ 
   category: {
     type: String,
     // ref: "Category",
