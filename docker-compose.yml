@@ -47,7 +47,7 @@ services:
     restart: always
     build: chat/
     ports:
-      - '3005:3005'
+      - '3004:3004'
     links:
       - chat_mongo
   chat_mongo:
