@@ -6,8 +6,8 @@ const cors = require('cors');
 const errors = require('../src/helpers/errorHandler.js')
 
 app.use(cors({ origin: "http://localhost:3001" })) // Default = CORS-enabled for all origins Access-Control-Allow-Origin: *!
-app.use(express.json()) // middleware for parsing application/json
-app.use(express.urlencoded({ extended: false })) // for parsing application/x-www-form-urlencoded
+app.use(express.json({limit: '50mb'})) // middleware for parsing application/json
+app.use(express.urlencoded({limit: '50mb', extended: false })) // for parsing application/x-www-form-urlencoded
 
 
 app.use('/products', require('./routes/product.routes'))
