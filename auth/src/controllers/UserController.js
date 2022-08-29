@@ -12,18 +12,15 @@ CTRL.register = (req, res) => {
     const user = new User(req.body)
 
     user.save().then(user => {
-        user ? res.json({ success: true }) : res.json({ error: 'User already exists' })
+        user ? res.json({ success: true, user }) : res.json({ error: 'User already exists' })
     }).catch(() => res.json({ error: 'User already exists' }))
 }
 
 
 CTRL.login = (req, res) => {
-
     const { email, password } = req.body;
-
     const user = User.findOne({ email }).then(
         user => {
-
             if (user && bcrypt.compareSync(password, user.password)) {
                 const token = auth.generateAccessToken(email);
                 return {
@@ -35,17 +32,11 @@ CTRL.login = (req, res) => {
             user ? res.json(user) : res.json({ error: 'Email or password is incorrect' });
         }
         )
-
 }
 
-
-
 CTRL.getUser = (req, res) => {
-
     const { userId } = req.params;
-
     const user = User.findById(userId).exec((err, user) => {
-
         if (err) {
             return res.status(500).json({
                 ok: false,
@@ -57,6 +48,28 @@ CTRL.getUser = (req, res) => {
             user,
         });
     })
+}
+
+
+CTRL.updateUser = (req, res) => {
+    const { userId } = req.params;
+    User.findByIdAndUpdate(
+        userId,
+        req.body,
+        { new: true },
+        (err, user) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    err,
+                });
+            }
+            return res.status(201).json({
+                ok: true,
+                user,
+            });
+        }
+    );
 }
 
 

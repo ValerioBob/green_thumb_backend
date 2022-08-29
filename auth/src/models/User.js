@@ -28,6 +28,11 @@ const UserSchema = new Schema({
         type: String,
         required: true,
     },
+    activityName: String,
+    fiscalAddress: String,
+    city: String,
+    vatNumber: String,
+    ibanCode: String
 
 });
 

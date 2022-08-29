@@ -7,6 +7,7 @@ const { isAuth } = require("../helpers/jwt");
 router.post("/login", userCTRL.login);
 router.post("/register", userCTRL.register);
 router.get("/:userId", userCTRL.getUser);
+router.put("/:userId", userCTRL.updateUser);
 
 
 
