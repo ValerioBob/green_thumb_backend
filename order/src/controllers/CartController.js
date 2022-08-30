@@ -5,7 +5,7 @@ const CTRL = {};
 
 CTRL.getCart = (req, res) => {
     const { cartId } = req.params;
-    Cart.findById(cartId).exec((err, cart) => {
+    Cart.find({"cartId": cartId}).exec((err, cart) => {
         if (err) {
             return res.status(500).json({
                 ok: false,

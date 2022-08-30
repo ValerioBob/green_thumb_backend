@@ -6,8 +6,8 @@ const { isAuth } = require("../helpers/jwt");
 
 
 router.get("/:cartId", cartCTRL.getCart);
-router.post("/:cartId/:productId", isAuth, cartCTRL.addProduct);
-router.delete("/:cartId/:productId", isAuth, cartCTRL.removeProduct);
-router.delete("/:cartId", isAuth, cartCTRL.deleteCart);
+router.post("/:cartId/:productId", cartCTRL.addProduct);
+router.delete("/:cartId/:productId",  cartCTRL.removeProduct);
+router.delete("/:cartId", cartCTRL.deleteCart);
 
 module.exports = router;

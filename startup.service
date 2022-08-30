@@ -7,7 +7,7 @@ User=bob
 WorkingDirectory=/home/bob/green_thumb_backend
 #Environment="ENV_VAR_NEEDED=value"
 #ExecStartPre=/bin/bash -c `/usr/bin/env`
-ExecStart=/usr/bin/docker-compose
+ExecStart=/usr/bin/docker-compose up --build
 
 [Install]
 WantedBy=multi-user.target
