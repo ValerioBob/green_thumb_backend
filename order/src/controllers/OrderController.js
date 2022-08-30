@@ -19,19 +19,31 @@ CTRL.getOrder = (req, res) => {
 };
 
 CTRL.addOrder = (req, res) => {
-    const { userId, productId } = req.params;//todo take from cart
+    const { userId, fullname,address,city,payment, cart, total } = req.body;
+
     const newOrder = new Order({
-        user: userId,
-        orderItems: [{ product: productId, qty: 1 }], ///todo take from cart
+        userId: userId,
+        fullname : fullname,
+        address : address, 
+        city: city,
+        payment: payment, 
+        cart: cart, //[{ product: productId, qty: 1 }], ///todo take from cart
+        total: total,
         latitude: 0,
         longitude: 0
     })
-    newOrder.save().then((order) => {
-        res.json({
-            ok: true,
-            order,
+    newOrder.save().then((err, order) => {
+    if (err) {
+        console.log('%o',err)
+        return res.status(500).json({
+            ok: false,
+            err,
         });
-    })
+    }
+    return res.status(201).json({
+        ok: true,
+        order,
+    })});
 }
 
 CTRL.updateOrder = (req, res) => {
