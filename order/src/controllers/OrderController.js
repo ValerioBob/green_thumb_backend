@@ -18,6 +18,23 @@ CTRL.getOrder = (req, res) => {
     });
 };
 
+CTRL.getUserOrders = (req, res) => {
+    const { userId } = req.params;
+    Order.find({'userId':userId}).exec((err, ord) => {
+        if (err) {
+            return res.status(500).json({
+                ok: false,
+                err
+            })
+        }
+        res.json({
+            ok: true,
+            ord,
+        });
+    });
+};
+
+
 CTRL.addOrder = (req, res) => {
     const { userId, fullname,address,city,payment, cart, total } = req.body;
 
