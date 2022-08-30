@@ -20,11 +20,9 @@ CTRL.getProducts = (req, res) => {
 };
 
 CTRL.getListofProducts = (req, res) => {
-    const products =  req.body.products;
-    console.log(products);
-    console.log(typeof(products))
+    const {products} =req.body;
     Product.find({'_id': products})
-        .populate("category")
+        
         .exec((err, products) => {
             if (err) {
                 return res.status(500).json({
@@ -89,7 +87,7 @@ CTRL.createProduct = (req, res) => {
         sunlight: req.body.sunlight,
         price: req.body.price,
         picture : req.body.picture,
-        quantity : req.body.quantity
+        quantityStock : req.body.quantity
     });
 
     console.log('%o', newProduct);
