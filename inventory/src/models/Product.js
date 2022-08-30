@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const ProductSchema = new Schema({
   sellerId: {
     type: Schema.Types.ObjectId,
-    requred: true,
+    required: true,
   },
   sellerName:  {
     type: String,
@@ -43,9 +43,9 @@ const ProductSchema = new Schema({
   price: Number,
   picture: {
     type: String,
-    // maxlength: 512,
+    
   },
- quantity: {
+ quantityStock: {
   type: Number,
   default: 1
 }, 

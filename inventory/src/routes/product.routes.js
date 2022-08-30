@@ -5,6 +5,7 @@ const productCTRL = require("../controllers/ProductController");
 const { isAuth } = require("../helpers/jwt");
 
 router.get("/", productCTRL.getProducts);
+router.post("/list", productCTRL.getListofProducts);
 router.get("/:sellerId", productCTRL.getSellersProducts);
 router.get("/:productId", productCTRL.getProduct);
 router.post("/", productCTRL.createProduct);

@@ -19,6 +19,28 @@ CTRL.getProducts = (req, res) => {
         });
 };
 
+CTRL.getListofProducts = (req, res) => {
+    const products =  req.body.products;
+    console.log(products);
+    console.log(typeof(products))
+    Product.find({'_id': products})
+        .populate("category")
+        .exec((err, products) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    err
+                })
+            }
+            res.json({
+                ok: true,
+                products,
+            });
+        });
+};
+
+// mongoose.find({sport_type: {$in: ['Cricket', 'Football']}})
+
 CTRL.getSellersProducts = (req,res) => {
     const { sellerId } = req.params;
     Product.find({'sellerId': sellerId})
