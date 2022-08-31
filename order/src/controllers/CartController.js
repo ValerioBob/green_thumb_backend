@@ -113,12 +113,12 @@ CTRL.removeProduct = (req, res) => {
         else if (cart.length > 0) {// cart exists
             found = false;
             cart[0].cartItems.forEach(p => {
-                if (p.product == productId) {
+                if (p.productId == productId) {
                     found = true;
                     Cart.updateOne(
                         { 'cartId': cartId },
                         {
-                            $pull: { cartItems: { product: p.product, qty: p.qty, price: p.price, _id: p._id } },
+                            $pull: { cartItems: { sellerId: p.sellerId, productId: p.productId, qty: p.qty, price: p.price, _id: p._id } },
                             $inc: { "total": -p.price }
                         })
                         .then(result => {
