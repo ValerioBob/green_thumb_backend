@@ -12,7 +12,8 @@ const OrderSchema = new Schema({
   payment: String,
   cart: [
     {
-      product: {
+      sellerId: Schema.Types.ObjectId,
+      productId: {
         type: Schema.Types.ObjectId,
       },
       qty: Number,

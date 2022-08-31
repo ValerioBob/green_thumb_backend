@@ -9,7 +9,10 @@ const CartSchema = new Schema({
     },
     cartItems: [
         {
-            product: {
+            sellerId: {
+                type: Schema.Types.ObjectId,
+            },
+            productId: {
                 type: Schema.Types.ObjectId,
             },
             qty: Number,

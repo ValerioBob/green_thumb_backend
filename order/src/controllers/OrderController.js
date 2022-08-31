@@ -4,7 +4,7 @@ const CTRL = {};
 
 CTRL.getOrder = (req, res) => {
     const { orderId } = req.params;
-    Order.findById(orderId).exec((err, ord) => {
+    Order.findById(orderId).exec((err, order) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
@@ -13,14 +13,14 @@ CTRL.getOrder = (req, res) => {
         }
         res.json({
             ok: true,
-            ord,
+            order,
         });
     });
 };
 
 CTRL.getUserOrders = (req, res) => {
     const { userId } = req.params;
-    Order.find({'userId':userId}).exec((err, ord) => {
+    Order.find({'userId':userId}).exec((err, orders) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
@@ -29,11 +29,26 @@ CTRL.getUserOrders = (req, res) => {
         }
         res.json({
             ok: true,
-            ord,
+            orders,
         });
     });
 };
 
+// CTRL.getSellerOrders = (req, res) => {
+//     const { userId } = req.params;
+//     Order.find({'userId':userId}).exec((err, orders) => {
+//         if (err) {
+//             return res.status(500).json({
+//                 ok: false,
+//                 err
+//             })
+//         }
+//         res.json({
+//             ok: true,
+//             orders,
+//         });
+//     });
+// };
 
 CTRL.addOrder = (req, res) => {
     const { userId, fullname,address,city,payment, cart, total } = req.body;
