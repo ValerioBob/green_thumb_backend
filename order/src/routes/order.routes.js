@@ -6,6 +6,7 @@ const { isAuth } = require("../helpers/jwt");
 
 router.get("/:orderId", orderCTRL.getOrder);
 router.get("/user/:userId", orderCTRL.getUserOrders);
+router.get("/seller/:sellerId", orderCTRL.getSellerOrders);
 router.post("/:userId", orderCTRL.addOrder);
 router.put("/:orderId", orderCTRL.updateOrder);
 

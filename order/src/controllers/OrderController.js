@@ -1,5 +1,5 @@
 const Order = require("../models/Order");
-
+const ObjectId = require('mongoose').Types.ObjectId
 const CTRL = {};
 
 CTRL.getOrder = (req, res) => {
@@ -34,21 +34,41 @@ CTRL.getUserOrders = (req, res) => {
     });
 };
 
-// CTRL.getSellerOrders = (req, res) => {
-//     const { userId } = req.params;
-//     Order.find({'userId':userId}).exec((err, orders) => {
-//         if (err) {
-//             return res.status(500).json({
-//                 ok: false,
-//                 err
-//             })
-//         }
-//         res.json({
-//             ok: true,
-//             orders,
-//         });
-//     });
-// };
+CTRL.getSellerOrders = (req, res) => {
+    const { sellerId } = req.params;
+    Order.aggregate([
+    {
+        $match: {"cart.sellerId": ObjectId(sellerId)}
+    },
+    {
+    $addFields: {
+      cart: {
+        $filter: {
+          input: "$cart",
+          cond: {
+            $eq: [
+              "$$this.sellerId",
+              ObjectId(sellerId)
+            ]
+          }
+        }
+      }
+    }
+  }
+])
+.exec((err, orders) => {
+        if (err) {
+            return res.status(500).json({
+                ok: false,
+                err
+            })
+        }
+        res.json({
+            ok: true,
+            orders,
+        });
+    });
+};
 
 CTRL.addOrder = (req, res) => {
     const { userId, fullname,address,city,payment, cart, total } = req.body;
