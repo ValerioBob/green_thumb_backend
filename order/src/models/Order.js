@@ -34,6 +34,10 @@ const OrderSchema = new Schema({
   longitude: {
       type: Number,
       
+  },
+  delivered: {
+    type:Boolean,
+    default: false
   }
 });
 

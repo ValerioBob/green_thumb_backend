@@ -9,11 +9,6 @@ router.get("/user/:userId", orderCTRL.getUserOrders);
 router.get("/seller/:sellerId", orderCTRL.getSellerOrders);
 router.post("/:userId", orderCTRL.addOrder);
 router.put("/:orderId", orderCTRL.updateOrder);
-
-// router.get("/", categoryCTRL.getCategories);
-// router.get("/:categoryId", categoryCTRL.getCategory);
-// router.post("/", isAuth, categoryCTRL.createCategory);
-// router.put("/:categoryId", isAuth, categoryCTRL.updateCategory);
-// router.delete("/:categoryId", isAuth, categoryCTRL.deleteCategory);
+router.put("/delivered/:orderId", orderCTRL.deliveredOrder);
 
 module.exports = router;

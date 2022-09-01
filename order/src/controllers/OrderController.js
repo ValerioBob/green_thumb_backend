@@ -79,7 +79,7 @@ CTRL.addOrder = (req, res) => {
         address : address, 
         city: city,
         payment: payment, 
-        cart: cart, //[{ product: productId, qty: 1 }], ///todo take from cart
+        cart: cart, 
         total: total,
         latitude: 0,
         longitude: 0
@@ -101,6 +101,23 @@ CTRL.addOrder = (req, res) => {
 CTRL.updateOrder = (req, res) => {
     const { orderId } = req.params;
     Order.findByIdAndUpdate(orderId, { latitude: req.body.latitude, longitude: req.body.longitude })
+        .exec((err, ord) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    err
+                })
+            }
+            res.json({
+                ok: true,
+                ord,
+            });
+        });
+}
+
+CTRL.deliveredOrder = (req, res) => {
+    const { orderId } = req.params;
+    Order.findByIdAndUpdate(orderId, { delivered: true })
         .exec((err, ord) => {
             if (err) {
                 return res.status(500).json({
