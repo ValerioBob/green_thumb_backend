@@ -9,6 +9,7 @@ router.post("/register", userCTRL.register);
 router.get("/:userId", userCTRL.getUser);
 router.put("/:userId", userCTRL.updateUser);
 router.put("/info/:userId", userCTRL.updateUserInfo);
+router.put("/rate/:userId/:ratingValue", userCTRL.rateUser);
 
 
 

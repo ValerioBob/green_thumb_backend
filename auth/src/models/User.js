@@ -33,8 +33,8 @@ const UserSchema = new Schema({
     city: String,
     vatNumber: String,
     ibanCode: String,
-    ratingValue: Number,
-    numberOfRatings: Number
+    ratingValue: {type: Number, default: 0},
+    numberOfRatings: {type: Number, default: 0}
 });
 
 UserSchema.set('toJSON', {
