@@ -4,8 +4,8 @@ const CTRL = {};
 
 CTRL.getProducts = (req, res) => {
     Product.find({})
-        .populate("category")
-        .exec((err, products) => {
+        
+        .exec((err, product) => {
             if (err) {
                 return res.status(500).json({
                     ok: false,
@@ -14,7 +14,7 @@ CTRL.getProducts = (req, res) => {
             }
             res.json({
                 ok: true,
-                products,
+                product, //todo 
             });
         });
 };
@@ -32,7 +32,7 @@ CTRL.getListofProducts = (req, res) => {
             }
             res.json({
                 ok: true,
-                products,
+                products,//todo
             });
         });
 };
@@ -51,7 +51,7 @@ CTRL.getSellersProducts = (req,res) => {
             }
             res.json({
                 ok: true,
-                product,
+                product,//todo
             });
         });
 }
@@ -69,7 +69,7 @@ CTRL.getProduct = (req, res) => {
             }
             res.json({
                 ok: true,
-                product,
+                product,//todo
             });
         });
 };
@@ -103,7 +103,7 @@ CTRL.createProduct = (req, res) => {
 
         return res.status(201).json({
             ok: true,
-            product,
+            product,//todo
         });
     });
 };
@@ -125,7 +125,7 @@ CTRL.updateProduct = (req, res) => {
 
             return res.status(201).json({
                 ok: true,
-                product,
+                product,//todo
             });
         }
     );
@@ -173,7 +173,7 @@ CTRL.updateQuantity=(req, res) => {
         
                 return res.status(201).json({
                     ok: true,
-                    product,
+                    product,//todo
                 });
             })
 
