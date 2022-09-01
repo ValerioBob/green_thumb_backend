@@ -32,8 +32,9 @@ const UserSchema = new Schema({
     fiscalAddress: String,
     city: String,
     vatNumber: String,
-    ibanCode: String
-
+    ibanCode: String,
+    ratingValue: Number,
+    numberOfRatings: Number
 });
 
 UserSchema.set('toJSON', {

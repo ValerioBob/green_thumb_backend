@@ -97,5 +97,28 @@ CTRL.updateUserInfo = (req, res) => {
     );
 }
 
-
+CTRL.rateUser = (req, res) => {
+    const { userId, ratingValue } = req.params;
+   
+    User.findByIdAndUpdate(
+        userId,
+        {
+            $inc: { "ratingValue": ratingValue, "numberOfRatings":1 }
+        },
+        { new: true },
+        (err, user) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    err,
+                });
+            }
+            console.log('%o',user);
+            return res.status(201).json({
+                ok: true,
+                user,
+            });
+        }
+    );
+}
 module.exports = CTRL;
