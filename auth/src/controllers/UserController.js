@@ -53,9 +53,13 @@ CTRL.getUser = (req, res) => {
 
 CTRL.updateUser = (req, res) => {
     const { userId } = req.params;
+    const { fullname,email, password } = req.body
+    const salt = bcrypt.genSaltSync(10);
+
+    var newPassword = bcrypt.hashSync(password, salt);
     User.findByIdAndUpdate(
         userId,
-        req.body,
+        {fullname: fullname, email: email, password: newPassword},
         { new: true },
         (err, user) => {
             if (err) {
@@ -64,6 +68,7 @@ CTRL.updateUser = (req, res) => {
                     err,
                 });
             }
+            console.log('%o',user);
             return res.status(201).json({
                 ok: true,
                 user,
