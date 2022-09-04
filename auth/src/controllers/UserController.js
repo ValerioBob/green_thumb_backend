@@ -97,11 +97,14 @@ CTRL.updateUserInfo = (req, res) => {
     );
 }
 
-CTRL.rateUser = (req, res) => {
-    const { userId, ratingValue } = req.params;
+CTRL.rateUsers = (req, res) => {
+    const {userIds}= req.body;
+    const {ratingValue } = req.params;
    
-    User.findByIdAndUpdate(
-        userId,
+    User.updateMany(
+        {
+            _id:{ $in: userIds}
+        },
         {
             $inc: { "ratingValue": ratingValue, "numberOfRatings":1 }
         },

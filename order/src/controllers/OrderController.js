@@ -132,4 +132,29 @@ CTRL.deliveredOrder = (req, res) => {
         });
 }
 
+CTRL.rateOrder = (req, res) => {
+    const { orderId, ratingValue } = req.params;
+   
+    Order.findByIdAndUpdate(
+        orderId,
+        {
+            $inc: { "ratingValue": ratingValue }
+        },
+        { new: true },
+        (err, order) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    err,
+                })
+            }
+            console.log('%o',order);
+            return res.status(201).json({
+                ok: true,
+                order,
+            });
+        }
+    );
+}
+
 module.exports = CTRL;

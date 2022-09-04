@@ -38,6 +38,10 @@ const OrderSchema = new Schema({
   delivered: {
     type:Boolean,
     default: false
+  },
+  ratingValue :{
+    type: Number,
+    default: 0
   }
 });
 
