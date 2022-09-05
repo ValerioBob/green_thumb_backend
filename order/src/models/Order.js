@@ -39,6 +39,10 @@ const OrderSchema = new Schema({
     type:Boolean,
     default: false
   },
+  deliveryInProgress: {
+    type:Boolean,
+    default: false
+  },
   ratingValue :{
     type: Number,
     default: 0

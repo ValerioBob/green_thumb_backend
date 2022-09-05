@@ -117,7 +117,24 @@ CTRL.updateOrder = (req, res) => {
 
 CTRL.deliveredOrder = (req, res) => {
     const { orderId } = req.params;
-    Order.findByIdAndUpdate(orderId, { delivered: true })
+    Order.findByIdAndUpdate(orderId, { delivered: true, deliveryInProgress: false  })
+        .exec((err, ord) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    err
+                })
+            }
+            res.json({
+                ok: true,
+                ord,
+            });
+        });
+}
+
+CTRL.deliveryInProgress = (req, res) => {
+    const { orderId } = req.params;
+    Order.findByIdAndUpdate(orderId, { deliveryInProgress: true })
         .exec((err, ord) => {
             if (err) {
                 return res.status(500).json({
