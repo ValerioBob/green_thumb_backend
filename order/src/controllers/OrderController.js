@@ -81,8 +81,8 @@ CTRL.addOrder = (req, res) => {
         payment: payment, 
         cart: cart, 
         total: total,
-        latitude: 41.889372,
-        longitude: 12.492437
+        latitude: 41.89021,
+        longitude: 12.49223
     })
     newOrder.save().then((err, order) => {
     if (err) {
