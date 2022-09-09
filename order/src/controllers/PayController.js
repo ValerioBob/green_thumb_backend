@@ -1,8 +1,8 @@
 const paypal = require('paypal-rest-sdk')
 paypal.configure({
     'mode': 'sandbox', //sandbox or live
-    'client_id': 'AZcZidF3yrp6e0Cj_B8SBgGJSyy0ElYsQ8HV6mJoMUybRrkAz4u6Z10uy517RBmM1RCFUxkYvWb18ewf',
-    'client_secret': 'EE0ugbmYh4EIuLAkuNyS0vPKR27Ml1qkrjR5j0cEwIb0WcXDoxumYoclx5zC68zOtD043-b-35mynGx3'
+    'client_id': '',
+    'client_secret': ''
 });
 const CTRL = {};
 
