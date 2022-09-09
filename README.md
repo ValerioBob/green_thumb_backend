@@ -52,12 +52,12 @@ password: {
 }
 ```
 ## build:
-docker compose up --build
+docker-compose up --build
 
 ## start / stop
-docker compose up
+docker-compose up
 
-docker compose down
+docker-compose down
 
 # Inventory microservice
 Nodejs server and mongodb database
